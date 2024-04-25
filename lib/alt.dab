@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: const Home(),
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.red,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _Home();
+  }
+}
+
+class _Home extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter', style: TextStyle(color: Colors.white)),
+        actions: const <Widget>[
+          Icon(Icons.account_circle_sharp, color: Colors.grey),
+        ],
+        elevation: 10.0,
+        centerTitle: true,
+      ),
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                child: RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'D',
+                        style: TextStyle(color: Colors.lightBlue, fontSize: 40.0, fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: 'évelopper\n',
+                        style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic, fontSize: 40.0),
+                      ),
+                      TextSpan(
+                        text: 'en\n',
+                        style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
+                      ),
+                      TextSpan(
+                        text: 'Flutter',
+                        style: TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic, fontSize: 40.0),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: 350.0,
+                height: 150.0,
+                padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.lightBlue, width: 3),
+                  borderRadius: BorderRadius.circular(90),
+                ),
+                child: Image.network(
+                  "https://s3-4987.nuage-peda.fr/juniaxp/DBE302/images/flutter.png",
+                ),
+              ),
+            ),
+          ],
+        ),
+    );
+  }
+}
