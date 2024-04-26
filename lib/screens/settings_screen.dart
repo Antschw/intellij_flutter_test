@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -21,6 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String? lastNameError;
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+  final player = AudioPlayer();
 
   /// Fonction de validation du formulaire
   ///
@@ -192,10 +195,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     label: sliderValue.round().toString(),
                     activeColor: Colors.indigo,
                     inactiveColor: Colors.indigo.withOpacity(0.2),
-                    onChanged: (double newValue) {
+                    onChanged: (double newValue) async {
                       setState(() {
                         sliderValue = newValue;
                       });
+                      await player.play(AssetSource('sounds/tick.wav'));
                     },
                   ),
                 ),
