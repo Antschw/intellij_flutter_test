@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intellij_flutter_test/controller/user_controller.dart';
 import 'package:intellij_flutter_test/model/user.dart';
 
-
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({super.key});
 
@@ -13,19 +12,43 @@ class UsersListScreen extends StatefulWidget {
 }
 
 class _UsersListScreen extends State<UsersListScreen> {
-  UserController _userController = UserController();
+  final UserController _userController = UserController();
+
   @override
   void initState() {
     super.initState();
     _userController.loadUsers();
   }
+
   Widget _buildUserList() {
     return ListView.builder(
       itemCount: _userController.users.length,
       itemBuilder: (BuildContext context, int index) {
         User user = _userController.users[index];
-        return ListTile(
-          title: Text('${user.prenom} ${user.nom}'),
+
+        return Dismissible(
+          key: Key('${user.prenom}${user.nom}'),
+          direction: DismissDirection.startToEnd,
+          onDismissed: (direction) {
+            setState(() {
+              _userController.users.removeAt(index);
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('${user.prenom} ${user.nom} supprimé')),
+            );
+          },
+          background: Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 20),
+            child: const Icon(Icons.delete, color: Colors.white),
+          ),
+          child: Card(
+            child: ListTile(
+              leading: const Icon(Icons.person),
+              title: Text('${user.prenom} ${user.nom}'),
+            ),
+          ),
         );
       },
     );
@@ -50,7 +73,8 @@ class _UsersListScreen extends State<UsersListScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.indigo.shade50,
-          title: const Text('Ajouter un utilisateur', style: TextStyle(color: Colors.black)),
+          title: const Text('Ajouter un utilisateur',
+              style: TextStyle(color: Colors.black)),
           content: Form(
             key: formKey,
             child: Column(
@@ -85,13 +109,15 @@ class _UsersListScreen extends State<UsersListScreen> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Annuler', style: TextStyle(color: Colors.black)),
+              child:
+                  const Text('Annuler', style: TextStyle(color: Colors.black)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Ajouter', style: TextStyle(color: Colors.black)),
+              child:
+                  const Text('Ajouter', style: TextStyle(color: Colors.black)),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
