@@ -25,20 +25,59 @@ class _HomeScreen extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+              ),
               onPressed: () => btAbout(context),
-              child: const Text('About'),
+              child: const Text(
+                'A propos',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
+            const SizedBox(height: 50),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+              ),
               onPressed: () => btMessage(context),
-              child: const Text('Message'),
+              child: const Text(
+                'Messages',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
+            const SizedBox(height: 50),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+              ),
               onPressed: () => btSettings(context),
-              child: const Text('Form'),
+              child: const Text(
+                'Formulaire',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
+            const SizedBox(height: 50),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+              ),
               onPressed: () => btUsers(context),
-              child: const Text('Users List'),
+              child: const Text(
+                'Liste des utilisateurs',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),

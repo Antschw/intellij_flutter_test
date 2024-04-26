@@ -3,6 +3,8 @@ import 'package:intellij_flutter_test/controller/user_controller.dart';
 import 'package:intellij_flutter_test/model/user.dart';
 import 'package:intellij_flutter_test/screens/user_detail_screen.dart';
 
+final UserController _userController = UserController();
+
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({super.key});
 
@@ -13,8 +15,6 @@ class UsersListScreen extends StatefulWidget {
 }
 
 class _UsersListScreen extends State<UsersListScreen> {
-  final UserController _userController = UserController();
-
   @override
   void initState() {
     super.initState();
@@ -55,7 +55,7 @@ class _UsersListScreen extends State<UsersListScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UserDetailScreen(user: user),
+                    builder: (context) => UserDetailScreen(user: user, userController: _userController),
                   ),
                 );
               },
@@ -147,7 +147,7 @@ class _UsersListScreen extends State<UsersListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users List', style: TextStyle(color: Colors.white)),
+        title: const Text('Liste d\'utilisateurs', style: TextStyle(color: Colors.white)),
         elevation: 10.0,
         centerTitle: true,
       ),
