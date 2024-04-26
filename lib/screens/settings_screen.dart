@@ -24,6 +24,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final player = AudioPlayer();
+  Color cardColor = Colors.blue;
+  final List<Color> colors = [Colors.blue, Colors.red, Colors.green, Colors.yellow, Colors.purple, Colors.orange, Colors.pink, Colors.indigo, Colors.teal, Colors.brown, Colors.grey, Colors.cyan, Colors.lime, Colors.amber, Colors.deepPurple, Colors.lightBlue, Colors.lightGreen, Colors.deepOrange, Colors.blueGrey, Colors.black, Colors.white, Colors.redAccent, Colors.greenAccent, Colors.blueAccent, Colors.yellowAccent, Colors.purpleAccent, Colors.orangeAccent, Colors.pinkAccent, Colors.indigoAccent, Colors.tealAccent, Colors.cyanAccent, Colors.limeAccent, Colors.amberAccent, Colors.deepPurpleAccent, Colors.lightBlueAccent, Colors.lightGreenAccent, Colors.deepOrangeAccent, Colors.blueGrey];
+  int colorIndex = 0;
+
+  void changeColor() {
+    setState(() {
+      colorIndex = (colorIndex + 1) % colors.length;
+      cardColor = colors[colorIndex];
+    });
+  }
 
   /// Fonction de validation du formulaire
   ///
@@ -267,6 +277,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                     ),
                   ],
+                ),
+                GestureDetector(
+                  onTap: changeColor,
+                  child: Card(
+                    color: cardColor,
+                    child: const SizedBox(
+                      width: 150,
+                      height: 150,
+                      child: Center(
+                        child: Text(
+                          'Couleur préférée',
+                          style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 // Bouton pour sélectionner la date
