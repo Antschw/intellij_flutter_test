@@ -34,7 +34,11 @@ class _HomeScreen extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () => btSettings(context),
-              child: const Text('Settings'),
+              child: const Text('Form'),
+            ),
+            ElevatedButton(
+              onPressed: () => btUsers(context),
+              child: const Text('Users List'),
             ),
           ],
         ),
@@ -62,5 +66,12 @@ void btSettings(BuildContext context) {
   Navigator.pushNamed(
     context,
     '/settings',
+  );
+}
+
+void btUsers(BuildContext context) {
+  Navigator.pushNamed(
+    context,
+    '/usersList',
   );
 }

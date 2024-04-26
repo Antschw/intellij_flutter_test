@@ -142,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil', style: TextStyle(color: Colors.white)),
+        title: const Text('Form', style: TextStyle(color: Colors.white)),
       ),
       // Corps de la page
       body: Container(
