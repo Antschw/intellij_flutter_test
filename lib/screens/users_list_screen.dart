@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intellij_flutter_test/controller/user_controller.dart';
 import 'package:intellij_flutter_test/model/user.dart';
+import 'package:intellij_flutter_test/screens/user_detail_screen.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({super.key});
@@ -34,7 +35,10 @@ class _UsersListScreen extends State<UsersListScreen> {
               _userController.users.removeAt(index);
             });
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('${user.prenom} ${user.nom} supprimé')),
+              SnackBar(
+                content: Text('${user.prenom} ${user.nom} supprimé'),
+                duration: const Duration(milliseconds: 500),
+              ),
             );
           },
           background: Container(
@@ -47,6 +51,14 @@ class _UsersListScreen extends State<UsersListScreen> {
             child: ListTile(
               leading: const Icon(Icons.person),
               title: Text('${user.prenom} ${user.nom}'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserDetailScreen(user: user),
+                  ),
+                );
+              },
             ),
           ),
         );
