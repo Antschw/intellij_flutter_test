@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../api/user.dart';
 import '../utils/secure_storage.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -34,9 +36,10 @@ class _LoginFormState extends State<LoginForm> {
     });
     try {
       final response =
-      await login(_emailController.text, _passwordController.text);
+          await login(_emailController.text, _passwordController.text);
       await secureStorage.saveCredentials(
           _emailController.text, _passwordController.text);
+      Provider.of<AuthProvider>(context, listen: false).login();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Authentification réussie')),
       );
@@ -86,13 +89,13 @@ class _LoginFormState extends State<LoginForm> {
           _isLoading
               ? CircularProgressIndicator()
               : ElevatedButton(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                await _login();
-              }
-            },
-            child: Text('Login'),
-          ),
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await _login();
+                    }
+                  },
+                  child: Text('Login'),
+                ),
         ],
       ),
     );
