@@ -8,7 +8,7 @@ class UserDetailScreen extends StatefulWidget {
   final User user;
   final UserController userController;
 
-  const UserDetailScreen({required this.user, required this.userController});
+  const UserDetailScreen({super.key, required this.user, required this.userController});
 
   @override
   _UserDetailScreenState createState() => _UserDetailScreenState();
@@ -39,10 +39,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
       colors: <Color>[Colors.purple, Colors.blue],
     ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
-    print('${widget.user.id}');
-    _messageController.messages.forEach((message) {
-      print('${message.auteur.id}');
-    });
+    print(widget.user.id);
+    for (var message in _messageController.messages) {
+      print(message.auteur.id);
+    }
 
     final userMessages = _messageController.messages.where((message) => message.auteur.id == widget.user.id).toList();
 

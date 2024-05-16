@@ -4,7 +4,7 @@ import 'package:intellij_flutter_test/controller/user_controller.dart';
 import 'package:intellij_flutter_test/model/message.dart';
 
 class MessageScreen extends StatefulWidget {
-  MessageScreen({Key? key}) : super(key: key);
+  const MessageScreen({super.key});
 
   @override
   _MessageScreenState createState() => _MessageScreenState();

@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/about': (context) => const AboutScreen(),
-        '/message': (context) => MessageScreen(),
+        '/message': (context) => const MessageScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/usersList': (context) => const UsersListScreen(),
       },
