@@ -15,6 +15,6 @@ class _RegisterScreen extends State<RegisterScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return MyScaffold(name: 'Register', body: RegisterForm());
+    return const MyScaffold(name: 'Register', body: RegisterForm());
   }
 }

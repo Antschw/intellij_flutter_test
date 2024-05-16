@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intellij_flutter_test/api/user.dart';
 
 class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -105,7 +107,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -133,7 +135,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _firstNameController,
               decoration: const InputDecoration(
@@ -158,10 +160,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
@@ -176,10 +178,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _passwordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Mot de passe',
                 border: OutlineInputBorder(),
               ),
@@ -207,10 +209,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _confirmPasswordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Confirmez le mot de passe',
                 border: OutlineInputBorder(),
               ),
@@ -224,9 +226,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             CheckboxListTile(
-              title: Text('Accepter les termes et conditions'),
+              title: const Text('Accepter les termes et conditions'),
               value: _agreeToTerms,
               onChanged: (bool? newValue) {
                 setState(() {
@@ -235,10 +237,10 @@ class _RegisterFormState extends State<RegisterForm> {
               },
               controlAffinity: ListTileControlAffinity.leading,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _agreeToTerms ? _submitForm : null,
-              child: Center(child: Text('S\'inscrire')),
+              child: const Center(child: Text('S\'inscrire')),
             ),
           ],
         ),
