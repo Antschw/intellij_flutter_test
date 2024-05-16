@@ -1,163 +1,54 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:intellij_flutter_test/controller/user_controller.dart';
-import 'package:intellij_flutter_test/model/user.dart';
-import 'package:intellij_flutter_test/screens/user_detail_screen.dart';
-
-final UserController _userController = UserController();
+import 'package:intellij_flutter_test/api/user.dart';
 
 class UsersListScreen extends StatefulWidget {
-  const UsersListScreen({super.key});
+  const UsersListScreen({Key? key}) : super(key: key);
 
   @override
-  _UsersListScreen createState() {
-    return _UsersListScreen();
-  }
+  _UsersListScreenState createState() => _UsersListScreenState();
 }
 
-class _UsersListScreen extends State<UsersListScreen> {
+class _UsersListScreenState extends State<UsersListScreen> {
+  List<Map<String, dynamic>> _userList = [];
+
   @override
   void initState() {
     super.initState();
-    _userController.loadUsers();
+    fetchAndSetUserList();
   }
 
-  Widget _buildUserList() {
-    return ListView.builder(
-      itemCount: _userController.users.length,
-      itemBuilder: (BuildContext context, int index) {
-        User user = _userController.users[index];
-
-        return Dismissible(
-          key: Key('${user.prenom}${user.nom}'),
-          direction: DismissDirection.startToEnd,
-          onDismissed: (direction) {
-            setState(() {
-              _userController.users.removeAt(index);
-            });
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${user.prenom} ${user.nom} supprimé'),
-                duration: const Duration(milliseconds: 500),
-              ),
-            );
-          },
-          background: Container(
-            color: Colors.red,
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 20),
-            child: const Icon(Icons.delete, color: Colors.white),
-          ),
-          child: Card(
-            child: ListTile(
-              leading: const Icon(Icons.person),
-              title: Text('${user.prenom} ${user.nom}'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UserDetailScreen(user: user, userController: _userController),
-                  ),
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _addUser() {
-    _showAddUserDialog().then((user) {
-      if (user != null) {
-        _userController.users.add(user);
-        setState(() {});
-      }
-    });
-  }
-
-  Future<User?> _showAddUserDialog() {
-    final formKey = GlobalKey<FormState>();
-    String prenom = '';
-    String nom = '';
-
-    return showDialog<User>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.indigo.shade50,
-          title: const Text('Ajouter un utilisateur',
-              style: TextStyle(color: Colors.black)),
-          content: Form(
-            key: formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Prénom'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Veuillez entrer un prénom';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    prenom = value!;
-                  },
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Nom'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Veuillez entrer un nom';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    nom = value!;
-                  },
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child:
-                  const Text('Annuler', style: TextStyle(color: Colors.black)),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child:
-                  const Text('Ajouter', style: TextStyle(color: Colors.black)),
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  Navigator.of(context).pop(User(nom, prenom));
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
+  Future<void> fetchAndSetUserList() async {
+    try {
+      final userList = await fetchUserList();
+      setState(() {
+        _userList = userList;
+      });
+    } catch (e) {
+      print("Exception while fetching user list: $e");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Liste d\'utilisateurs', style: TextStyle(color: Colors.white)),
-        elevation: 10.0,
-        centerTitle: true,
+        title: Text('User List'),
       ),
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-      body: _buildUserList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addUser,
-        backgroundColor: Colors.indigo.shade200,
-        child: const Icon(Icons.add),
-      ),
+      body: _userList.isNotEmpty
+          ? ListView.builder(
+              itemCount: _userList.length,
+              itemBuilder: (context, index) {
+                final user = _userList[index];
+                return ListTile(
+                  title: Text('${user['firstName']} ${user['lastName']}'),
+                  subtitle: Text(user['email']),
+                );
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
