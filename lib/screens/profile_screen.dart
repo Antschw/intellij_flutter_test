@@ -41,7 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<Map<String, dynamic>?> getUserData() async {
     final credentials = await storage.readCredentials();
     try {
-      final response = await login(credentials['email'] ?? '', credentials['password'] ?? '');
+      final response = await login(
+          credentials['email'] ?? '', credentials['password'] ?? '');
       if (response.statusCode == 200) {
         return json.decode(response.body);
       } else {
