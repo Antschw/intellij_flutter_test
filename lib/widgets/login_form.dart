@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../api/user.dart';
 import '../utils/secure_storage.dart';
@@ -11,10 +13,10 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
   final SecureStorage secureStorage = SecureStorage();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -37,13 +39,14 @@ class _LoginFormState extends State<LoginForm> {
     try {
       final response =
           await login(_emailController.text, _passwordController.text);
+      final responseData = json.decode(response.body);
       await secureStorage.saveCredentials(
           _emailController.text, _passwordController.text);
+      await secureStorage.saveToken(responseData['token']);
       Provider.of<AuthProvider>(context, listen: false).login();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Authentification réussie')),
       );
-
       Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(context, '/');
       });
