@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intellij_flutter_test/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
@@ -20,12 +21,24 @@ class MyScaffold extends StatelessWidget {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.app_registration, color: Colors.white),
+            icon: Icon(
+                authProvider.isLoggedIn ? Icons.account_circle :  Icons.app_registration,
+                color: Colors.white
+            ),
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                '/register',
-              );
+              if (authProvider.isLoggedIn) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  ),
+                );
+              } else {
+                Navigator.pushNamed(
+                  context,
+                  '/register',
+                );
+              }
             },
           ),
           IconButton(
