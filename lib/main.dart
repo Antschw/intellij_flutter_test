@@ -5,10 +5,22 @@ import 'package:intellij_flutter_test/screens/message_screen.dart';
 import 'package:intellij_flutter_test/screens/settings_screen.dart';
 import 'package:intellij_flutter_test/screens/users_list_screen.dart';
 import 'package:intellij_flutter_test/screens/register_screen.dart';
+import 'package:intellij_flutter_test/screens/login_screen.dart';
+
+import 'package:provider/provider.dart';
+import 'providers/auth_provider.dart';
+
+
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: MainApp(),
+    ),
+  );
 }
+
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -31,6 +43,7 @@ class MainApp extends StatelessWidget {
         '/settings': (context) => const SettingsScreen(),
         '/usersList': (context) => const UsersListScreen(),
         '/register': (context) => const RegisterScreen(),
+        '/login': (context) => LoginScreen(),
       },
     );
   }
