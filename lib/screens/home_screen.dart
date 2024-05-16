@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intellij_flutter_test/widgets/myscaffold.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,14 +14,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter', style: TextStyle(color: Colors.white)),
-        leading: const Icon(Icons.access_alarm, color: Color(0xFFFF00FF)),
-        elevation: 10.0,
-        centerTitle: true,
-      ),
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+    return MyScaffold(
+      name: 'Home',
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +23,7 @@ class _HomeScreen extends State<HomeScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+                MaterialStateProperty.all<Color>(Colors.indigo.shade500),
               ),
               onPressed: () => btAbout(context),
               child: const Text(
@@ -41,7 +37,7 @@ class _HomeScreen extends State<HomeScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+                MaterialStateProperty.all<Color>(Colors.indigo.shade500),
               ),
               onPressed: () => btMessage(context),
               child: const Text(
@@ -55,7 +51,7 @@ class _HomeScreen extends State<HomeScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+                MaterialStateProperty.all<Color>(Colors.indigo.shade500),
               ),
               onPressed: () => btSettings(context),
               child: const Text(
@@ -69,7 +65,7 @@ class _HomeScreen extends State<HomeScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.indigo.shade500),
+                MaterialStateProperty.all<Color>(Colors.indigo.shade500),
               ),
               onPressed: () => btUsers(context),
               child: const Text(

@@ -4,6 +4,7 @@ import 'package:intellij_flutter_test/screens/home_screen.dart';
 import 'package:intellij_flutter_test/screens/message_screen.dart';
 import 'package:intellij_flutter_test/screens/settings_screen.dart';
 import 'package:intellij_flutter_test/screens/users_list_screen.dart';
+import 'package:intellij_flutter_test/screens/register_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
         '/message': (context) => const MessageScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/usersList': (context) => const UsersListScreen(),
+        '/register': (context) => const RegisterScreen(),
       },
     );
   }
