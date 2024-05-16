@@ -66,10 +66,6 @@ class MyScaffold extends StatelessWidget {
       ),
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: body,
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
-      ),
     );
   }
 }

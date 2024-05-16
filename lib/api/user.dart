@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../model/user.dart';
+
 Future<int> registerUser(String firstName, String lastName, String email,
     String password, List<String> roles) async {
   var url = Uri.parse('https://s3-5002.nuage-peda.fr/users');
@@ -43,6 +45,18 @@ Future<List<Map<String, dynamic>>> fetchUserList() async {
   } catch (e) {
     print("Exception while fetching user list: $e");
     rethrow;
+  }
+}
+
+Future<User> fetchUserDetails(int userId) async {
+  final response = await http.get(Uri.parse('https://s3-5002.nuage-peda.fr/users/$userId'));
+
+  if (response.statusCode == 200) {
+    var userDetails = json.decode(response.body);
+    User user = User(userDetails['firstName'], userDetails['lastName']);
+    return user;
+  } else {
+    throw Exception('Failed to load user details');
   }
 }
 
