@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intellij_flutter_test/api/user.dart';
+import 'package:intellij_flutter_test/screens/user_detail_screen.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({Key? key}) : super(key: key);
@@ -37,15 +38,30 @@ class _UsersListScreenState extends State<UsersListScreen> {
       ),
       body: _userList.isNotEmpty
           ? ListView.builder(
-              itemCount: _userList.length,
-              itemBuilder: (context, index) {
-                final user = _userList[index];
-                return ListTile(
-                  title: Text('${user['firstName']} ${user['lastName']}'),
-                  subtitle: Text(user['email']),
+        itemCount: _userList.length,
+        itemBuilder: (context, index) {
+          final user = _userList[index];
+          return Card(
+            child: ListTile(
+              leading: const Icon(Icons.person),
+              title: Text('${user['firstName']} ${user['lastName']}'),
+              subtitle: Text(user['email']),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserDetailScreen(
+                      firstName: user['firstName'],
+                      lastName: user['lastName'],
+                      email: user['email'],
+                    ),
+                  ),
                 );
               },
-            )
+            ),
+          );
+        },
+      )
           : Center(
               child: CircularProgressIndicator(),
             ),
